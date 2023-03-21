@@ -1,4 +1,4 @@
-PROJECTS = template
+PROJECTS = rtl8762c-dev-board
 
 # Turn on increased build verbosity by defining BUILD_VERBOSE in your main
 # Makefile or in your environment. You can also use V=1 on the make command
@@ -42,7 +42,7 @@ exports/plots/%-pcb.pdf: source/*/%.kicad_pcb
 	$(eval tempdir := $(shell mktemp -d))
 
 	$(eval copper := $(shell $(PCB_HELPER) \
-		--pcb source/template/template.kicad_pcb \
+		--pcb source/rtl8762c-dev-board/rtl8762c-dev-board.kicad_pcb \
 		copper \
 	))
 
@@ -61,7 +61,7 @@ exports/plots/%-pcb.pdf: source/*/%.kicad_pcb
 
 production/gbr/%.zip: source/*/%.kicad_pcb
 	$(eval stackup := Edge.Cuts $(shell $(PCB_HELPER) \
-		--pcb source/template/template.kicad_pcb \
+		--pcb source/rtl8762c-dev-board/rtl8762c-dev-board.kicad_pcb \
 		stackup \
 	))
 
