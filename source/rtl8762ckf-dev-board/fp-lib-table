@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "Connector_Castellated")(type "KiCad")(uri "/home/work/repos/rtl8762c-dev-board/library/Connector_Castellated.pretty")(options "")(descr ""))
+)
