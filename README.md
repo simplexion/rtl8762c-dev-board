@@ -14,6 +14,12 @@ Please view the [product page](https://www.realmcu.com/en/Home/Product/93cc0582-
 - [Schematic](exports/plots//rtl8762ckf-dev-board-sch.pdf)
 - [Layout](exports/plots//rtl8762ckf-dev-board-pcb.pdf)
 
+#### On-Board
+| Function | Pin  |
+|----------|------|
+| LED      | P4_3 |
+| Button   | P1_7 |
+
 ## Directory Structure
 | directory  | content                                                              |
 |------------|----------------------------------------------------------------------|
