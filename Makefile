@@ -19,6 +19,8 @@ endif
 KICAD_CLI ?= kicad-cli
 PDFUNITE ?= pdfunite
 PCB_HELPER ?= ./scripts/pcb_helper.py
+BOM_HELPER ?= ./scripts/bom_helper.py
+SED ?= sed
 
 PLOTS=$(addprefix exports/plots/, $(PROJECTS))
 PLOTS_SCH=$(addsuffix -sch.pdf, $(PLOTS))
@@ -28,10 +30,28 @@ PLOTS_ALL=$(PLOTS_SCH) $(PLOTS_PCB)
 GERBER_DIRS=$(addprefix production/gbr/, $(PROJECTS))
 GERBER_ZIPS=$(addsuffix .zip, $(GERBER_DIRS))
 
+# POS = $(addprefix production/pos/, $(PROJECTS))
+# POS_FRONT=$(addsuffix -front.csv, $(POS))
+# POS_BACK=$(addsuffix -back.csv, $(POS))
+# POS_ALL=$(POS_FRONT) $(POS_BACK)
+POS_ALL = $(addprefix production/pos/, $(addsuffix .csv, $(PROJECTS)))
 
-all: $(PLOTS_ALL) $(GERBER_ZIPS)
+BOMS = $(addprefix production/bom/, $(addsuffix .csv, $(PROJECTS)))
+
+all: $(PLOTS_ALL) $(GERBER_ZIPS) $(POS_ALL) $(BOMS)
 .PHONY: all
 
+plots: $(PLOTS_ALL)
+.PHONY: plots
+
+gerbers: $(GERBER_ZIPS)
+.PHONY: gerbers
+
+pos: $(POS_ALL)
+.PHONY: pos
+
+bom: $(BOMS)
+.PHONY: bom
 
 exports/plots/%-sch.pdf: source/*/%.kicad_sch
 	$(Q)$(KICAD_CLI) sch export pdf \
@@ -42,26 +62,28 @@ exports/plots/%-pcb.pdf: source/*/%.kicad_pcb
 	$(eval tempdir := $(shell mktemp -d))
 
 	$(eval copper := $(shell $(PCB_HELPER) \
-		--pcb source/rtl8762cjf-dev-board/rtl8762cjf-dev-board.kicad_pcb \
+		--pcb "$<" \
 		copper \
 	))
 
-	$(Q)for layer in $(copper); \
+	$(Q)n=0; \
+	for layer in $(copper); \
 	do \
 		$(KICAD_CLI) pcb export pdf \
 			--include-border-title \
 			--layers "$$layer,Edge.Cuts" \
 			"$<" \
-			--output "$(tempdir)/$*-$$layer.pdf"; \
+			--output "$(tempdir)/$$(printf "%02d" $${n})-$*-$$layer.pdf"; \
+		let "n+=1" ; \
 	done
 
-	$(Q)$(PDFUNITE) $(tempdir)/$*-*.pdf "$@" 2>/dev/null
+	$(Q)$(PDFUNITE) $(tempdir)/*-$*-*.pdf "$@" 2>/dev/null
 
 	$(Q)rm -r $(tempdir)
 
 production/gbr/%.zip: source/*/%.kicad_pcb
 	$(eval stackup := Edge.Cuts $(shell $(PCB_HELPER) \
-		--pcb source/rtl8762cjf-dev-board/rtl8762cjf-dev-board.kicad_pcb \
+		--pcb "$<" \
 		stackup \
 	))
 
@@ -84,10 +106,47 @@ production/gbr/%.zip: source/*/%.kicad_pcb
 
 	$(Q)zip $@ production/gbr/$*/*
 
+# production/pos/%-back.csv: source/*/%.kicad_pcb
+# 	$(Q)$(KICAD_CLI) pcb export pos \
+# 		--format csv \
+# 		--side back \
+# 		"$<" \
+# 		--output "$@"
+
+# production/pos/%-front.csv: source/*/%.kicad_pcb
+# 	$(Q)$(KICAD_CLI) pcb export pos \
+# 		--format csv \
+# 		--side front \
+# 		"$<" \
+# 		--output "$@"
+
+production/pos/%.csv: source/*/%.kicad_pcb
+	$(Q)$(KICAD_CLI) pcb export pos \
+		--format csv \
+		--units mm \
+		"$<" \
+		--output "$@"
+	$(Q)$(SED) \
+		-e 's/Ref/Designator/' \
+		-e 's/PosX/Mid X/' \
+		-e 's/PosY/Mid Y/' \
+		-e 's/Side/Layer/' \
+		-e 's/Rot/Rotation/' \
+		-i "$@"
+
+production/bom/%.csv: source/*/%.kicad_sch
+	$(Q)$(KICAD_CLI) sch export python-bom \
+		"$<" \
+		--output "production/bom/$*.xml"
+	$(Q)$(BOM_HELPER) \
+		--bom "production/bom/$*.xml" \
+		--csv "$@"
 
 clean:
 	$(Q)rm -rf $(PLOTS_ALL)
 	$(Q)rm -rf $(GERBER_DIRS)
 	$(Q)rm -rf $(GERBER_ZIPS)
+	$(Q)rm -rf $(POS_ALL)
+	$(Q)rm -rf $(BOMS)
 	$(Q)rm -rf $(PATTERN)
 .PHONY: clean
