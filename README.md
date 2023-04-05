@@ -1,7 +1,18 @@
-# KiCad Template
-KiCad 7 project template with document export automation
+# RTL8762C Development Board
+Development board(s) for the Realtek [RTL8762C](https://www.realtek.com/en/products/communications-network-ics/item/rtl8762c) BLE MCU.
+Please view the [product page](https://www.realmcu.com/en/Home/Product/93cc0582-3a3f-4ea8-82ea-76c6504e478a) for detailed information and documentation. 
 
-For KiCad *Version: 7.0.1, release build*
+## Features
+- USB-UART for flashing and i/o
+- USB-SWD for on-chip debugging
+
+## Variants
+
+### RTL8762CKF
+<img src="exports/renderings/rtl8762ckf-dev-board-front.png" width="49%"> <img src="exports/renderings/rtl8762ckf-dev-board-back.png" width="49%">
+
+- [Schematic](exports/plots//rtl8762ckf-dev-board-sch.pdf)
+- [Layout](exports/plots//rtl8762ckf-dev-board-pcb.pdf)
 
 ## Directory Structure
 | directory  | content                                                              |
@@ -32,20 +43,12 @@ with KiCad and all other software by running `nix-shell` in the root of this
 repository.
 
 ### Export
-To export all PDFs and Gerbers, simply run
+To export all PDFs and production files, simply run
 ```shell
 make
 ```
-PDFs and Gerbers are exported automatically when you `git commit`, if you have
+PDFs and production files are exported automatically when you `git commit`, if you have
 [Git Hooks](#installing-git-hooks-optional) set up.
-
-### Pattern
-To recreate the pattern, first remove the pattern from the board and save it,
-then run
-```shell
-make pattern
-```
-Add the new pattern graphic to the board.
 
 ### Installing Git Hooks (optional)
 The [hooks](hooks) directory contains client-side [git hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks).
