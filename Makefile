@@ -113,20 +113,6 @@ production/gbr/%.zip: source/*/%.kicad_pcb
 
 	$(Q)zip $@ production/gbr/$*/*
 
-# production/pos/%-back.csv: source/*/%.kicad_pcb
-# 	$(Q)$(KICAD_CLI) pcb export pos \
-# 		--format csv \
-# 		--side back \
-# 		"$<" \
-# 		--output "$@"
-
-# production/pos/%-front.csv: source/*/%.kicad_pcb
-# 	$(Q)$(KICAD_CLI) pcb export pos \
-# 		--format csv \
-# 		--side front \
-# 		"$<" \
-# 		--output "$@"
-
 production/pos/%.csv: source/*/%.kicad_pcb
 	$(Q)$(KICAD_CLI) pcb export pos \
 		--format csv \
