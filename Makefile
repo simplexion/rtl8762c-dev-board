@@ -32,10 +32,6 @@ PLOTS_ALL=$(PLOTS_SCH) $(PLOTS_PCB)
 GERBER_DIRS=$(addprefix production/gbr/, $(PROJECTS))
 GERBER_ZIPS=$(addsuffix .zip, $(GERBER_DIRS))
 
-# POS = $(addprefix production/pos/, $(PROJECTS))
-# POS_FRONT=$(addsuffix -front.csv, $(POS))
-# POS_BACK=$(addsuffix -back.csv, $(POS))
-# POS_ALL=$(POS_FRONT) $(POS_BACK)
 POS_ALL = $(addprefix production/pos/, $(addsuffix .csv, $(PROJECTS)))
 
 BOMS = $(addprefix production/bom/, $(addsuffix .csv, $(PROJECTS)))
