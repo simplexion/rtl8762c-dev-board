@@ -4,7 +4,8 @@
 from argparse import ArgumentParser, FileType, ArgumentTypeError
 from re import split
 from sexpdata import loads
-from os.path import dirname
+from os.path import dirname, basename
+from datetime import datetime
 from jinja2 import FileSystemLoader, Environment
 
 
@@ -42,13 +43,6 @@ def parse_arguments():
         type=FileType("w"),
         help="path to c header output file",
     )
-    parser.add_argument(
-        "-g",
-        "--guard",
-        default="BOARD_CONFIG_H",
-        type=str,
-        help="c header guard string",
-    )
 
     args = parser.parse_args()
     return args
@@ -64,7 +58,12 @@ def main():
     net_list_sexp = loads(args.net.read())
     args.net.close()
 
-    params = {"mcu": args.part, "guard": args.guard, "connections": []}
+    params = {
+        "mcu": args.part,
+        "connections": [],
+        "filename": basename(args.output.name),
+        "date": datetime.now().strftime("%Y-%m-%d"),
+    }
 
     net_list_sexp_set = sexp_to_set(net_list_sexp[1:])
 
