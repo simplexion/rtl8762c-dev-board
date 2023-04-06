@@ -13,7 +13,7 @@ def parse_arguments():
         "-p", "--pcb", required=True, type=FileType("r"), help="path to PCB file"
     )
     parser.add_argument(
-        "-c", "--comma", action="store_true", help="print comma seperated list"
+        "-c", "--comma", action="store_true", help="print comma separated list"
     )
 
     action = parser.add_subparsers(dest="action")
