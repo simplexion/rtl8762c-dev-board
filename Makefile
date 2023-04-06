@@ -20,7 +20,9 @@ KICAD_CLI ?= kicad-cli
 PDFUNITE ?= pdfunite
 PCB_HELPER ?= ./scripts/pcb_helper.py
 BOM_HELPER ?= ./scripts/bom_helper.py
+NET_HELPER ?= ./scripts/net_helper.py
 SED ?= sed
+MKDIR ?= mkdir
 
 PLOTS=$(addprefix exports/plots/, $(PROJECTS))
 PLOTS_SCH=$(addsuffix -sch.pdf, $(PLOTS))
@@ -38,6 +40,8 @@ POS_ALL = $(addprefix production/pos/, $(addsuffix .csv, $(PROJECTS)))
 
 BOMS = $(addprefix production/bom/, $(addsuffix .csv, $(PROJECTS)))
 
+HEADERS = $(addprefix exports/headers/, $(addsuffix /board_config.h, $(PROJECTS)))
+
 all: $(PLOTS_ALL) $(GERBER_ZIPS) $(POS_ALL) $(BOMS)
 .PHONY: all
 
@@ -52,6 +56,9 @@ pos: $(POS_ALL)
 
 bom: $(BOMS)
 .PHONY: bom
+
+header: $(HEADERS)
+.PHONY: header
 
 exports/plots/%-sch.pdf: source/*/%.kicad_sch
 	$(Q)$(KICAD_CLI) sch export pdf \
@@ -141,6 +148,18 @@ production/bom/%.csv: source/*/%.kicad_sch
 	$(Q)$(BOM_HELPER) \
 		--bom "production/bom/$*.xml" \
 		--csv "$@"
+
+source/*/%.net: source/*/%.kicad_sch
+	$(Q)$(KICAD_CLI) sch export netlist \
+		"$<" \
+		--output "source/$*/$*.net"
+
+exports/headers/%/board_config.h : source/*/%.net
+	$(Q)$(MKDIR) -p exports/headers/$*/
+	$(Q)$(NET_HELPER) \
+		--net "$<" \
+		--part RTL8762CKF \
+		--output "$@"
 
 clean:
 	$(Q)rm -rf $(PLOTS_ALL)
