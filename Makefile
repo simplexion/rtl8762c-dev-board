@@ -42,7 +42,7 @@ BOMS = $(addprefix production/bom/, $(addsuffix .csv, $(PROJECTS)))
 
 HEADERS = $(addprefix exports/headers/, $(addsuffix /board_config.h, $(PROJECTS)))
 
-all: $(PLOTS_ALL) $(GERBER_ZIPS) $(POS_ALL) $(BOMS)
+all: $(PLOTS_ALL) $(GERBER_ZIPS) $(POS_ALL) $(BOMS) $(HEADERS)
 .PHONY: all
 
 plots: $(PLOTS_ALL)
@@ -153,5 +153,5 @@ clean:
 	$(Q)rm -rf $(GERBER_ZIPS)
 	$(Q)rm -rf $(POS_ALL)
 	$(Q)rm -rf $(BOMS)
-	$(Q)rm -rf $(PATTERN)
+	$(Q)rm -rf $(HEADERS)
 .PHONY: clean
