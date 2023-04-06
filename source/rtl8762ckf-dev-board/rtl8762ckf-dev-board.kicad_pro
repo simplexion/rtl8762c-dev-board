@@ -537,8 +537,6 @@
       "/AE-feed": "50Ohm",
       "/LPF": "50Ohm",
       "/RF": "50Ohm",
-      "/RP2040/USB.D+": "USB 2.0",
-      "/RP2040/USB.D-": "USB 2.0",
       "/Type-C USB 2.0/D+": "USB 2.0",
       "/Type-C USB 2.0/D-": "USB 2.0",
       "/Type-C USB 2.0/VBUS_F1": "0.5A",
