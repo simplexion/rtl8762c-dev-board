@@ -35,6 +35,7 @@ mkShell {
     poppler_utils
     (python3.withPackages(ps: with ps; [
       sexpdata
+      jinja2
     ]))
   ];
 }
