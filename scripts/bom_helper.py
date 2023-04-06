@@ -7,7 +7,9 @@ from csv import DictWriter, QUOTE_ALL
 
 
 def parse_arguments():
-    parser = ArgumentParser(description="Print list of board layers", epilog="")
+    parser = ArgumentParser(
+        description="Convert kicad-cli python-bom to csv", epilog=""
+    )
 
     parser.add_argument(
         "-b", "--bom", required=True, type=FileType("r"), help="path to BOM input file"
@@ -63,11 +65,11 @@ def main():
                 grouped_bom[fields] = [ref]
             else:
                 grouped_bom[fields] += [ref]
-    
+
     for fields, refs in grouped_bom.items():
         writer.writerow(
             {
-                "Designator": ','.join(refs),
+                "Designator": ",".join(refs),
                 "Footprint": fields[0],
                 "Quantity": len(refs),
                 "Value": fields[1],
