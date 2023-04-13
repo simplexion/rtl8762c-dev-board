@@ -6,6 +6,9 @@ Please view the [product page](https://www.realmcu.com/en/Home/Product/93cc0582-
 - USB-UART for flashing and i/o
 - USB-SWD for on-chip debugging
 
+## Board Bring-Up
+Please refer to the [bring-up](./bring-up.md) page for instructions.
+
 ## Variants
 
 ### RTL8762CKF
