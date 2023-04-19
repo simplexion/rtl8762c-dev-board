@@ -19,7 +19,7 @@
 "C9,C12","Capacitor_SMD:C_0402_1005Metric","2","C",""
 "C10,C13,C14,C15,C16,C17,C18,C20,C21,C23,C26,C28,C29,C30,C32,C33,C34,C35","Capacitor_SMD:C_0402_1005Metric","18","100n","C1546"
 "C11,C19","Capacitor_SMD:C_0402_1005Metric","2","4.7u","C23733"
-"L3","Inductor_SMD:L_0603_1608Metric","1","2.2u","C12530"
+"L3","Inductor_SMD:L_0805_2012Metric","1","2.2u","C394950"
 "U2","Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.3x4.3mm","1","RTL8762CKF",""
 "Y1","Crystal:Crystal_SMD_2016-4Pin_2.0x1.6mm","1","40MHz","C516561"
 "C22","Capacitor_SMD:C_0402_1005Metric","1","10u","C15525"

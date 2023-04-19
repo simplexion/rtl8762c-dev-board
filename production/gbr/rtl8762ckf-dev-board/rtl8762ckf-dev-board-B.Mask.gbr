@@ -1,12 +1,12 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,7.0.1*%
-%TF.CreationDate,2023-04-19T15:23:09+02:00*%
+%TF.CreationDate,2023-04-19T17:15:17+02:00*%
 %TF.ProjectId,rtl8762ckf-dev-board,72746c38-3736-4326-936b-662d6465762d,0.1.0*%
 %TF.SameCoordinates,Original*%
 %TF.FileFunction,Soldermask,Bot*%
 %TF.FilePolarity,Negative*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 7.0.1) date 2023-04-19 15:23:09*
+G04 Created by KiCad (PCBNEW 7.0.1) date 2023-04-19 17:15:17*
 %MOMM*%
 %LPD*%
 G01*
