@@ -26,7 +26,7 @@
 "F1","Resistor_SMD:R_0402_1005Metric","1","500mA","C124083"
 "FB1","Inductor_SMD:L_0603_1608Metric","1","600Ω@100MHz","C370570"
 "J7","Connector_USB:USB_C_Receptacle_Palconn_UTC16-G","1","USB_C_Receptacle_USB2.0","C2927039"
-"R5,R8,R11","Resistor_SMD:R_0402_1005Metric","3","10k","C25086"
+"R5,R8,R11","Resistor_SMD:R_0402_1005Metric","3","10k","C25744"
 "R6,R7","Resistor_SMD:R_0402_1005Metric","2","5.1k","C25905"
 "TP1","TestPoint:TestPoint_Pad_D1.0mm","1","GND",""
 "TP2","TestPoint:TestPoint_Pad_D1.0mm","1","VBUS",""
