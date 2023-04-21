@@ -14,6 +14,9 @@ Please refer to the [bring-up](./bring-up.md) page for instructions.
 ### RTL8762CKF
 <img src="exports/renderings/rtl8762ckf-dev-board-front.png" width="49%"> <img src="exports/renderings/rtl8762ckf-dev-board-back.png" width="49%">
 
+Browse the files on [KiCanvas](https://kicanvas.org/?github=https://github.com/simplexion/rtl8762c-dev-board/tree/main/source/rtl8762ckf-dev-board) - by [Stargirl Flowers](https://github.com/theacodes)
+
+#### PDFs
 - [Schematic](exports/plots//rtl8762ckf-dev-board-sch.pdf)
 - [Layout](exports/plots//rtl8762ckf-dev-board-pcb.pdf)
 
